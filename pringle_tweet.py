@@ -27,17 +27,22 @@ def get_prices(shop_name,url, element_type, class_value,):
     options.add_argument('--disable-gpu')  # Last I checked this was necessary.
     driver = webdriver.Chrome('./chromedriver.exe', chrome_options=options)
     driver.get(url)
-    time.sleep(10)
 
-    html = driver.page_source
+    while True:
+        time.sleep(1)
+        try:
+            html = driver.page_source
 
-    soup = BeautifulSoup(html,features="html.parser")
+            soup = BeautifulSoup(html,features="html.parser")
 
-    find_price_element = soup.findAll(element_type, {"class": class_value})
-    find_price_text = find_price_element[0].text.strip()
+            find_price_element = soup.findAll(element_type, {"class": class_value})
+            find_price_text = find_price_element[0].text.strip()
 
-    driver.close()
-    print(shop_name+" done")
+            driver.close()
+            print(shop_name+" done")
+            break
+        except:
+            print("try again")
     return shop_name,find_price_text
 
 def get_all_super_markets():
@@ -66,3 +71,4 @@ def create_pringal_tweet():
     with open('temp.txt', 'r') as f:
         #tweeter.tweet(f.read(),CONSUMER_KEY,CONSUMER_SECRET,ACCESS_TOKEN,ACCESS_TOKEN_SECRET)
         print(f.read())
+create_pringal_tweet()

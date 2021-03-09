@@ -4,9 +4,9 @@ import os
 import tweeter
 
 #this will only work on pi
-from board import SCL, SDA
-import busio
-from adafruit_seesaw.seesaw import Seesaw
+#from board import SCL, SDA
+#import busio
+#from adafruit_seesaw.seesaw import Seesaw
 
 
 def tweet_generator(number):
@@ -20,16 +20,16 @@ def tweet_generator(number):
         cwd = os.getcwd()
         with open(cwd+'\data.json') as json_file:
             data = json.load(json_file)
-        tweet = data["bad_intro"][no1]+data["insult"][no2]+data["say_plant_needs_water"][no3]+data["outro"][no4]+"/n water leval=" + number
+        tweet = data["bad_intro"][no1]+data["insult"][no2]+data["say_plant_needs_water"][no3]+data["outro"][no4]+ "\nwater leval=" + str(number)
         return tweet
 def water_sensor():
     #this will only work on pi
-    i2c_bus = busio.I2C(SCL, SDA)
-    ss = Seesaw(i2c_bus, addr=0x36)
+    #i2c_bus = busio.I2C(SCL, SDA)
+    #ss = Seesaw(i2c_bus, addr=0x36)
 
-    moisture_value = ss.moisture_read()
+    #moisture_value = ss.moisture_read()
 
-    #water_value = 500
+    moisture_value = 500
     return moisture_value
 
 def water_tweet():
@@ -37,3 +37,5 @@ def water_tweet():
     tweet_text = tweet_generator(water_value)
     #tweeter.tweet(tweet_text)
     print(tweet_text)
+
+water_tweet()
