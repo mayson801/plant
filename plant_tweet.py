@@ -2,8 +2,15 @@ import random
 import json
 import os
 import tweeter
+
+#this will only work on pi
+from board import SCL, SDA
+import busio
+from adafruit_seesaw.seesaw import Seesaw
+
+
 def tweet_generator(number):
-    if (number<600):
+    if (number<1000):
         no1 = (random.randint(0, 9))
         no2 = (random.randint(0, 9))
         no3 = (random.randint(0, 9))
@@ -16,8 +23,14 @@ def tweet_generator(number):
         tweet = data["bad_intro"][no1]+data["insult"][no2]+data["say_plant_needs_water"][no3]+data["outro"][no4]
         return tweet
 def water_sensor():
-    water_value = 500
-    return water_value
+    #this will only work on pi
+    i2c_bus = busio.I2C(SCL, SDA)
+    ss = Seesaw(i2c_bus, addr=0x36)
+
+    moisture_value = ss.moisture_read()
+
+    #water_value = 500
+    return moisture_value
 
 def water_tweet():
     water_value = water_sensor()
