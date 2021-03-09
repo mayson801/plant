@@ -20,7 +20,7 @@ def tweet_generator(number):
         cwd = os.getcwd()
         with open(cwd+'\data.json') as json_file:
             data = json.load(json_file)
-        tweet = data["bad_intro"][no1]+data["insult"][no2]+data["say_plant_needs_water"][no3]+data["outro"][no4]
+        tweet = data["bad_intro"][no1]+data["insult"][no2]+data["say_plant_needs_water"][no3]+data["outro"][no4]+"/n water leval=" + number
         return tweet
 def water_sensor():
     #this will only work on pi
