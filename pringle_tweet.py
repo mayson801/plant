@@ -59,7 +59,10 @@ def get_all_super_markets():
     asda_price = get_prices("asda","https://groceries.asda.com/product/pringles-tube-snacks/pringles-original-sharing-crisps/910003062100","strong","co-product__price pdp-main-details__price")
     morrisons_price = get_prices("morrisons","https://groceries.morrisons.com/products/pringles-original-372817011", "h2", "bop-price__current")
     sainsburys_price = get_prices("sainsburys","https://www.sainsburys.co.uk/gol-ui/product/pringles-original-190g","div","pd__cost__total undefined",False)
+    if sainsburys_price[1] =="null":
+        sainsburys_price = get_prices("sainsburys","https://www.sainsburys.co.uk/gol-ui/product/pringles-original-190g","div","pd__cost__total--promo undefined", False)
     coop_price = get_prices("coop","https://www.coop.co.uk/products/pringles-original-200g","p","coop-c-card__price")
+
 
     list_of_shop_prices=[tesco_price,asda_price,morrisons_price,sainsburys_price,coop_price]
 
@@ -76,10 +79,10 @@ def add_iteam(shop,price,date):
 
 def create_pringal_tweet():
     #change_these
-    CONSUMER_KEY =  '##############'
-    CONSUMER_SECRET = '####################'
-    ACCESS_TOKEN = '######################'
-    ACCESS_TOKEN_SECRET = '###################'
+    CONSUMER_KEY =  '6Gcj1k8KsqU083WLbsBVtlsE3'
+    CONSUMER_SECRET = 'Wnq3A6sq4jt8yUWdJxJ4zZsFB1pRsOWpBJWtTETS8g3hZ1WOqd'
+    ACCESS_TOKEN = '1352749264892530688-E7bSHpr9Ij4Oc5CsGto3n3Ck95hi1D'
+    ACCESS_TOKEN_SECRET = 'VcwdphWF3YZGeKUZqycruYf7krUapED7Qjn6IEyYWipih'
     list_of_shop_prices = get_all_super_markets()
     with open('temp.txt', 'w') as f:
         for shop in list_of_shop_prices:
@@ -88,7 +91,7 @@ def create_pringal_tweet():
           else:
                     f.write(shop[0] +" £" + shop[1]+ "\n")
     with open('temp.txt', 'r') as f:
-        tweeter.tweet(f.read(),CONSUMER_KEY,CONSUMER_SECRET,ACCESS_TOKEN,ACCESS_TOKEN_SECRET)
+        #tweeter.tweet(f.read(),CONSUMER_KEY,CONSUMER_SECRET,ACCESS_TOKEN,ACCESS_TOKEN_SECRET)
         print(f.read())
     os.remove("temp.txt")
 create_pringal_tweet()
